@@ -26,13 +26,24 @@ router.route('/:time_range')
                         }
                     }
                 },
+                sort: {
+                    "@timestamp": { "order": "desc" }
+                },
                 _source: ["heading", "content", "link", "date"],
                 size: 100
             }
         }).then(function (resp) {
             var hits = resp.hits.hits;
             console.log('Retrieved records count: ', hits.length);
-            res.send(hits);
+            var formattedHits = hits.map(hit => {
+                return {
+                    "heading": hit._source.heading,
+                    "content": hit._source.content,
+                    "date": hit._source.date,
+                    "link": hit._source.link
+                }
+            })
+            res.send(formattedHits);
         }, function (err) {
             console.trace(err);
             res.send(err);
