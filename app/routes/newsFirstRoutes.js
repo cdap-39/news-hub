@@ -38,7 +38,7 @@ router.route('/:time_range')
             var formattedHits = hits.map(hit => {
                 return {
                     "heading": hit._source.heading,
-                    "content": hit._source.content,
+                    "content": hit._source.content.replace(/\(adsbygoogle.+/i, '').trim(),
                     "date": hit._source.date,
                     "link": hit._source.link
                 }
