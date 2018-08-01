@@ -18,9 +18,11 @@ var port = process.env.PORT || 8080;
 // API ROUTES 
 // =============================================================================
 var newsFirstRoutes = require('./routes/newsFirstRoutes');
+var hiruNewsRoutes = require('./routes/hiruNewsRoutes');
 
 // REGISTER ROUTES -------------------------------
 app.use('/api/newsfirst', newsFirstRoutes);
+app.use('/api/hirunews', hiruNewsRoutes);
 
 // START THE SERVER
 // =============================================================================
