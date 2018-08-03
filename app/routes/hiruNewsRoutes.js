@@ -30,7 +30,7 @@ router.route('/:time_range')
                     "@timestamp": { "order": "desc" }
                 },
                 _source: ["heading", "content", "link", "date"],
-                size: 100
+                size: 10000
             }
         }).then(function (resp) {
             var hits = resp.hits.hits;
