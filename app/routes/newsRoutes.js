@@ -16,7 +16,7 @@ router.route('/:time_range')
     // standard value for: 3d
     .get((req, res) => {
         client.search({
-            index: 'newsfirst',
+            index: ['newsfirst', 'hirunews'],
             type: 'doc',
             body: {
                 query: {
