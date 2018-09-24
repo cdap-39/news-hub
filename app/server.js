@@ -11,7 +11,7 @@ var elasticsearch = require('elasticsearch');
 
 // configure server to use bodyParser()
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '10mb'}));
 
 var port = process.env.PORT || 8081;
 

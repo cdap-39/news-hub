@@ -3,12 +3,12 @@
 var express = require('express');
 var router = express.Router();
 var elasticsearch = require('elasticsearch');
-
-var elasticsearchIP = 'localhost:9200';
+var config = require('../../config')
 
 var client = new elasticsearch.Client({
-    host: elasticsearchIP,
-    log: 'trace'
+    host: config.elasticsearch.IP + ':' + config.elasticsearch.port,
+    log: 'error',
+    requestTimeout: 30000
 });
 
 

@@ -3,14 +3,15 @@
 var express = require('express');
 var router = express.Router();
 var elasticsearch = require('elasticsearch');
-
-var elasticsearchIP = 'localhost:9200';
+var config = require('../../config')
 
 var client = new elasticsearch.Client({
-    host: elasticsearchIP,
+    host: config.elasticsearch.IP + ':' + config.elasticsearch.port,
     log: 'error',
-    requestTimeout: 1200000
+    requestTimeout: 30000
 });
+
+var moment = require('moment');
 
 
 router.route('/')
@@ -20,14 +21,10 @@ router.route('/')
             type: 'doc',
             body: {
                 query: {
-                    range: {
-                        "@timestamp": {
-                            gte: "now-" + req.params.time_range
-                        }
-                    }
+                    match_all: {}
                 },
                 sort: {
-                    "@timestamp": { "order": "desc" }
+                    "date": { "order": "desc" }
                 },
                 _source: ["heading", "content", "link", "date"],
                 size: 10000
@@ -78,6 +75,8 @@ function prepareBulkRequest(data) {
 
         action.update._id = record.heading;
         doc.doc = record;
+        doc.doc.date = moment(record.date);
+
         requestBody.push(action);
         requestBody.push(doc);
     });
