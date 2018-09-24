@@ -8,7 +8,8 @@ var elasticsearchIP = '35.237.151.220:9200';
 
 var client = new elasticsearch.Client({
     host: elasticsearchIP,
-    log: 'error'
+    log: 'error',
+    requestTimeout: 1200000
 });
 
 
