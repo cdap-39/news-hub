@@ -1,4 +1,4 @@
-// newsRoutes.js
+// newsFirstRoutes.js
 
 var express = require('express');
 var router = express.Router();
@@ -8,15 +8,14 @@ var elasticsearchIP = '35.237.151.220:9200';
 
 var client = new elasticsearch.Client({
     host: elasticsearchIP,
-    log: 'trace'
+    log: 'error'
 });
 
 
-router.route('/:time_range')
-    // standard value for: 3d
+router.route('/')
     .get((req, res) => {
         client.search({
-            index: ['newsfirst', 'hirunews'],
+            index: ['processed_news'],
             type: 'doc',
             body: {
                 query: {
@@ -49,5 +48,40 @@ router.route('/:time_range')
             res.send(err);
         });
     })
+    .put((req, res) => {
+        var requestBody = prepareBulkRequest(req.body);
+
+        client.bulk({
+            body: requestBody
+        }).then((resp) => {
+            res.send(resp);
+        }).catch((err) => {
+            res.send(err);
+        })
+    })
+
+function prepareBulkRequest(data) {
+    var requestBody = [];
+
+    
+    data.forEach(record => {
+        var action = { update: { _index: 'processed_news', _type: 'doc', _id: "" } }
+        var doc = {
+            "doc": {},
+            "doc_as_upsert": true
+        }
+
+        if (!record.heading) {
+            return;
+        }
+
+        action.update._id = record.heading;
+        doc.doc = record;
+        requestBody.push(action);
+        requestBody.push(doc);
+    });
+
+    return requestBody;
+}
 
 module.exports = router;
