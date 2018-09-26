@@ -26,7 +26,7 @@ router.route('/')
                 sort: {
                     "date": { "order": "desc" }
                 },
-                _source: ["heading", "content", "link", "date"],
+                _source: ["heading", "content", "link", "date", "ref"],
                 size: 10000
             }
         }).then(function (resp) {
@@ -37,7 +37,8 @@ router.route('/')
                     "heading": hit._source.heading,
                     "content": hit._source.content.replace(/\(adsbygoogle.+/i, '').trim().replace(/\r?\n|\r/g, ''),
                     "date": hit._source.date,
-                    "link": hit._source.link
+                    "link": hit._source.link,
+                    "ref": hit._source.ref
                 }
             })
             res.send(formattedHits);
