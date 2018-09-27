@@ -29,7 +29,7 @@ router.route('/:time_range')
                 sort: {
                     "@timestamp": { "order": "desc" }
                 },
-                _source: ["heading", "content", "link", "date"],
+                _source: ["heading", "content", "link", "date", "image"],
                 size: 10000
             }
         }).then(function (resp) {
