@@ -29,7 +29,7 @@ router.route('/:time_range')
                 sort: {
                     "@timestamp": { "order": "desc" }
                 },
-                _source: ["heading", "content", "link", "date", "image"],
+                _source: ["heading", "content", "link", "date", "image", "media-link"],
                 size: 10000
             }
         }).then(function (resp) {
@@ -41,7 +41,8 @@ router.route('/:time_range')
                     "content": hit._source.content.replace(/\(adsbygoogle.+/i, '').trim().replace(/\r?\n|\r/g, ''),
                     "date": hit._source.date,
                     "link": hit._source.link,
-                    "image": hit._source.image
+                    "image": hit._source.image,
+                    "media-link": hit._source['media-link']
                 }
             })
             res.send(formattedHits);
