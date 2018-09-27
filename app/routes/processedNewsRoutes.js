@@ -26,7 +26,7 @@ router.route('/')
                 sort: {
                     "date": { "order": "desc" }
                 },
-                _source: ["heading", "content", "link", "date", "ref"],
+                _source: ["heading", "content", "link", "date", "ref", "category", "image", "media-link", "video-link", "media_ethics"],
                 size: 10000
             }
         }).then(function (resp) {
@@ -38,7 +38,12 @@ router.route('/')
                     "content": hit._source.content.replace(/\(adsbygoogle.+/i, '').trim().replace(/\r?\n|\r/g, ''),
                     "date": hit._source.date,
                     "link": hit._source.link,
-                    "ref": hit._source.ref
+                    "ref": hit._source.ref,
+                    "category": hit._source.category,
+                    "image": hit._source.category,
+                    "media-link": hit._source.media-link,
+                    "video-link": hit._source.video-link,
+                    "media_ethics": hit._source.media_ethics
                 }
             })
             res.send(formattedHits);
