@@ -40,7 +40,7 @@ router.route('/')
                     "link": hit._source.link,
                     "ref": hit._source.ref,
                     "category": hit._source.category,
-                    "image": hit._source.category,
+                    "image": hit._source.image,
                     "media-link": hit._source['media-link'],
                     "video-link": hit._source['video-link'],
                     "media_ethics": hit._source.media_ethics
