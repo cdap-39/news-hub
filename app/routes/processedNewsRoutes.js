@@ -41,8 +41,8 @@ router.route('/')
                     "ref": hit._source.ref,
                     "category": hit._source.category,
                     "image": hit._source.category,
-                    "media-link": hit._source.media-link,
-                    "video-link": hit._source.video-link,
+                    "media-link": hit._source['media-link'],
+                    "video-link": hit._source['video-link'],
                     "media_ethics": hit._source.media_ethics
                 }
             })
