@@ -40,7 +40,8 @@ router.route('/:time_range')
                     "heading": hit._source.heading,
                     "content": hit._source.content.replace(/\(adsbygoogle.+/i, '').trim().replace(/\r?\n|\r/g, ''),
                     "date": hit._source.date,
-                    "link": hit._source.link
+                    "link": hit._source.link,
+                    "image": hit._source.image
                 }
             })
             res.send(formattedHits);
