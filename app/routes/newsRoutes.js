@@ -42,7 +42,7 @@ router.route('/:time_range')
                     "date": hit._source.date,
                     "link": hit._source.link,
                     "image": hit._source.image,
-                    "media-link": hit._source['media-link']
+                    "media-link": hit._source.image
                 }
             })
             res.send(formattedHits);
