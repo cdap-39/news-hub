@@ -8,10 +8,12 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var elasticsearch = require('elasticsearch');
+var cors = require('cors');
 
 // configure server to use bodyParser()
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({limit: '10mb'}));
+app.use(cors());
 
 var port = process.env.PORT || 8081;
 
